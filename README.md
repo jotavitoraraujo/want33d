@@ -2,12 +2,13 @@
 
 Este projeto tem como objetivo criar um agente autônomo em Python capaz de monitorar o preço e os volumes de negociação do token **AERO** (Aerodrome Finance), utilizando a API pública da **DefiLlama**.
 
-## 🚀 Funcionalidades
+## 🟩 Funcionalidades
 
-- ✅ Coleta em tempo real do preço do token AERO
-- ✅ Análise simples de suporte/resistência baseada em thresholds definidos manualmente
-- ✅ Coleta e agregação de volumes de negociação de 24h, 7d e 30d
-- ✅ Organização dos dados em dicionários Python com semântica clara
+- ✅ Coleta em tempo real do preço do token AERO  
+- ✅ Análise simples de suporte/resistência baseada em thresholds definidos manualmente  
+- 📊 Coleta e agregação de volumes de negociação de 24h, 7d e 30d  
+- 🧠 Organização dos dados em dicionários Python com semântica clara  
+- 📉 Comparação entre o TVL atual e o valor de 30 dias atrás, com retorno direto sobre a variação (aumento, queda ou estabilidade)
 
 ## 🛠️ Tecnologias
 
@@ -30,8 +31,9 @@ python main.py
 
 ```
 want33d/
-├── main.py          # Código principal com coleta e análise
-└── README.md        # Instruções e documentação do projeto
+├── main.py # Código principal com coleta e análise
+├── testes.py # Laboratório de testes e desenvolvimento de novas funcionalidades
+└── README.md # Instruções e documentação do projeto
 ```
 
 ## 👨‍💻 Autor
@@ -41,6 +43,10 @@ Focado em aprendizado raiz, disciplina prática e construção de projetos reais
 
 [🔗 LinkedIn](www.linkedin.com/in/joaoaraujo015/)
 [🔗 Instagram](https://www.instagram.com/vt2.1/)
+
+## 📅 Histórico de Atualizações
+
+- [09/06/2025] Adicionado recurso de comparação entre o TVL atual e o de 30 dias atrás, com análise automática da variação (aumento, queda ou estabilidade), exibido diretamente no terminal.
 
 ## ⚖️ Licença
 
