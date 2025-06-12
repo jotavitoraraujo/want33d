@@ -8,13 +8,16 @@ Este projeto tem como objetivo criar um agente autônomo em Python capaz de moni
 - ✅ Análise simples de suporte/resistência baseada em thresholds definidos manualmente  
 - 📊 Coleta e agregação de volumes de negociação de 24h, 7d e 30d  
 - 🧠 Organização dos dados em dicionários Python com semântica clara  
-- 📉 Comparação entre o TVL atual e o valor de 30 dias atrás, com retorno direto sobre a variação (aumento, queda ou estabilidade)
+- 📉 Comparação entre o TVL atual e o de 30 dias atrás com busca automática da data mais próxima e retorno da análise no terminal
 
 ## 🛠️ Tecnologias
 
 - [Python 3.13+](https://www.python.org)
 - [VS Code](https://code.visualstudio.com/)
-- Biblioteca `requests` (instalável via `pip install requests`)
+- Bibliotecas padrão:
+  - `datetime`, `timezone`, `timedelta` — manipulação de datas e horários
+- Biblioteca externa:
+  - `requests` — acesso a APIs REST (instalável via `pip install requests`)
 
 ## 📦 Instalação e Execução
 
@@ -31,9 +34,10 @@ python main.py
 
 ```
 want33d/
-├── main.py # Código principal com coleta e análise
-├── testes.py # Laboratório de testes e desenvolvimento de novas funcionalidades
-└── README.md # Instruções e documentação do projeto
+want33d/
+├── preco.py   # Responsável pela coleta de preço, volumes e análise de suporte/resistência
+├── tvl.py     # Responsável pela análise de variação do TVL entre a data atual e 30 dias atrás
+├── README.md  # Instruções e documentação do projeto
 ```
 
 ## 👨‍💻 Autor
@@ -47,6 +51,7 @@ Focado em aprendizado raiz, disciplina prática e construção de projetos reais
 ## 📅 Histórico de Atualizações
 
 - [09/06/2025] Adicionado recurso de comparação entre o TVL atual e o de 30 dias atrás, com análise automática da variação (aumento, queda ou estabilidade), exibido diretamente no terminal.
+- [12/06/2025] Refatorado o projeto com separação de responsabilidades em arquivos distintos (`preco.py` e `tvl.py`). A função de análise de TVL agora retorna a variação (aumento/queda/estável) com base na data mais próxima possível de 30 dias atrás.
 
 ## ⚖️ Licença
 

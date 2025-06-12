@@ -39,7 +39,7 @@ volume_aero = {
 }
 print(f'O token {token_aero['nome']} na rede {token_aero['rede']} está custando ${token_aero['preco']:.4f} e seu estado é de {token_aero['analise']}.')
 print(f'Volume 24h: ${volume_aero['24h']:,.2f} - Volume 7d: ${volume_aero['7d']:,.2f} - Volume 30d: ${volume_aero['30d']:,.2f}')
+
+# importando o tvl.py para o preco.py - apenas para testes
 from tvl import tvl_30d
-
 tvl_30d_atras, data_tvl = tvl_30d()
-
