@@ -43,3 +43,4 @@ print(f'Volume 24h: ${volume_aero['24h']:,.2f} - Volume 7d: ${volume_aero['7d']:
 # importando o tvl.py para o preco.py - apenas para testes
 from tvl import tvl_30d
 tvl_30d_atras, data_tvl = tvl_30d()
+
