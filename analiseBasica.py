@@ -21,29 +21,25 @@ def want33d():
 
     # variavel que armazena minha chave api privada
     apiBASEscan_chavePrivada = os.getenv('BASESCAN_API_CHAVE')
-
+    
     # dicionário json pool aero/eth | via api dexScrenner
     url_aeroeth = 'https://api.dexscreener.com/latest/dex/pairs/base/0x7f670f78B17dEC44d5Ef68a48740b6f8849cc2e6'
     resposta_aeroeth = requests.get(url_aeroeth)
     dicionario_aeroeth = resposta_aeroeth.json()
-
+        
     # captura de preço
     preco_aeroeth = dicionario_aeroeth['pair']['priceUsd']
-    print('-' * 40)
-    print(f'Preço AERO: ${preco_aeroeth}')
-
+        
     # captura de variacao de preço | 3 timestamps | 1h - 6h - 24h
     variacao_1h = dicionario_aeroeth['pair']['priceChange']['h1']
     variacao_6h = dicionario_aeroeth['pair']['priceChange']['h6']
     variacao_24h = dicionario_aeroeth['pair']['priceChange']['h24']
-    print(f'Variações - 1h: {variacao_1h}% | 6h: {variacao_6h}% | 24h: {variacao_24h}%')
-
+        
     # captura de volumes | 3 timestamps | 1h - 6h - 24h
     volume_1h = dicionario_aeroeth['pair']['volume']['h1']
     volume_6h = dicionario_aeroeth['pair']['volume']['h6']
     volume_24h = dicionario_aeroeth['pair']['volume']['h24']
-    print(f'Volumes - 1h: ${volume_1h:,.2f} | 6h: ${volume_6h:,.2f} | 24h: ${volume_24h:,.2f}')
-
+        
     # captura de transações | 3 timestamps | 1h - 6h - 24h
     compras_1h = dicionario_aeroeth['pair']['txns']['h1']['buys']
     compras_6h = dicionario_aeroeth['pair']['txns']['h6']['buys']
@@ -51,32 +47,45 @@ def want33d():
     vendas_1h = dicionario_aeroeth['pair']['txns']['h1']['sells']
     vendas_6h = dicionario_aeroeth['pair']['txns']['h6']['sells']
     vendas_24h = dicionario_aeroeth['pair']['txns']['h24']['sells']
-
+    
     # transações totais | 3 timestamps | 1h - 6h - 24h
     total_1h = compras_1h + vendas_1h
     total_6h = compras_6h + vendas_6h
     total_24h = compras_24h + vendas_24h
-    print(f'Transações *Buy|Sell* - 1h: {compras_1h, vendas_1h} | 6h: {compras_6h, vendas_6h} | 24h: {compras_24h, vendas_24h}')
-    print(f'Total Transações *Buy|Sell* - 1h: {total_1h} | 6h: {total_6h} | 24h: {total_24h}')
-
+    
     # liquidez na pool 
     liquidez = dicionario_aeroeth['pair']['liquidity']['usd']
-    print(f'Liquidez AERO/ETH: ${liquidez:,.2f}')
-
+    
     # captura de marketcap (na lista 0)
     marketcap = dicionario_aeroeth['pairs'][0]['marketCap']
-    print(f'MarketCap: ${marketcap:,.2f}')
-    print('-' * 40)
 
-    # consulta pela API baseScan p/ obter transações recentes da pool aero/eth
-    enderecoPool_aeroeth = '0x7f670f78B17dEC44d5Ef68a48740b6f8849cc2e6'
-    url_aeroethBASESCAN = (f'https://api.basescan.org/api?module=account&action=txlist&address={enderecoPool_aeroeth}&startblock=0&endblock=99999999&sort=desc&apikey={apiBASEscan_chavePrivada}')
-    resposta_poolaeroeth = requests.get(url_aeroethBASESCAN)
-    dicionarioPoolaeroeth_BASESCAN = resposta_poolaeroeth.json()
-    transacoes = dicionarioPoolaeroeth_BASESCAN['result']
-    recentes = [
-        tx for tx in transacoes
-        if datetime.fromtimestamp(int(tx['timeStamp']), tz=timezone.utc) >= limite_24h
-    ]
+    return {
+        'preco_usd': float(preco_aeroeth),
+        'variacao': {
+            '1h': float(variacao_1h),
+            '6h': float(variacao_6h),
+            '24h': float(variacao_24h)
+        },
+        'volume': {
+            '1h': float(volume_1h),
+            '6h': float(volume_6h),
+            '24h': float(volume_24h)
+        },
+        'transacoes': {
+            'c1h': float(compras_1h),
+            'c6h': float(compras_6h),
+            'c24h': float(compras_24h),
+            'v1h': float(vendas_1h),
+            'v6h': float(vendas_6h),
+            'v24h': float(vendas_24h)
+        },
+        'transacoesTotal': {
+            't1h': float(total_1h),
+            't6h': float(total_6h),
+            't24h': float(total_24h)
+        },
+        'liquidez_usd': float(liquidez),
+        'marketCap': float(marketcap)
+    }
 if __name__ == '__main__':
     want33d()
