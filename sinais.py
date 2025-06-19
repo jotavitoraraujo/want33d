@@ -6,7 +6,7 @@ from pathlib import Path
 from datetime import datetime, timedelta, timezone
 dotenv_path = Path('.') / '.env'
 load_dotenv(dotenv_path=dotenv_path)
-apiBASEscan_chavePrivada = os.getenv('BASESCAN_API_CHAVE')
+apiBASEscan_chavePrivada = os.getenv('BLAST_API_CHAVE')
 agora = datetime.now(timezone.utc)
 limite_24h = agora - timedelta(hours=24)
 

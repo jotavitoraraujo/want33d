@@ -26,9 +26,14 @@ def want33d():
     url_aeroeth = 'https://api.dexscreener.com/latest/dex/pairs/base/0x7f670f78B17dEC44d5Ef68a48740b6f8849cc2e6'
     resposta_aeroeth = requests.get(url_aeroeth)
     dicionario_aeroeth = resposta_aeroeth.json()
+
+    url_eth = 'https://coins.llama.fi/prices/current/coingecko:ethereum'
+    resposta_eth = requests.get(url_eth)
+    dicionario_eth = resposta_eth.json()
         
-    # captura de preço
+    # captura de preço AERO e ETH
     preco_aeroeth = dicionario_aeroeth['pair']['priceUsd']
+    preco_eth = dicionario_eth['coins']['coingecko:ethereum']['price']
         
     # captura de variacao de preço | 3 timestamps | 1h - 6h - 24h
     variacao_1h = dicionario_aeroeth['pair']['priceChange']['h1']
@@ -61,6 +66,7 @@ def want33d():
 
     return {
         'preco_usd': float(preco_aeroeth),
+        'precoETH_usd': float(preco_eth),
         'variacao': {
             '1h': float(variacao_1h),
             '6h': float(variacao_6h),
