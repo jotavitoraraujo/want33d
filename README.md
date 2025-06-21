@@ -1,4 +1,4 @@
-🧠 want33d — Agente Autônomo de Monitoramento Cripto
+# 🧠 want33d — Agente Autônomo de Monitoramento Cripto
 
 Este projeto tem como objetivo criar um agente autônomo em Python, chamado want33d, capaz de monitorar em tempo real o comportamento do token AERO (Aerodrome Finance) na rede Base, utilizando APIs públicas para análise de preço, volume, liquidez e força compradora/vendedora.
 
@@ -24,9 +24,11 @@ Este projeto tem como objetivo criar um agente autônomo em Python, chamado want
 
 ✅ Interface visual no terminal com progresso de coleta e análise técnica
 
-🚧 Em breve: Coleta segmentada por timestamps psicológicos (1h, 6h, 24h) com blocos exatos via RPC
+✅ Geração de blocos baseados em timestamps psicológicos (1h, 6h, 24h)
 
 ✅ Estrutura modular com main.py como ponto de entrada
+
+🚧 Em breve: Rastreamento completo do token AERO em múltiplas pools na blockchain Base, independentemente do contrato da pool
 
 🧱 Tecnologias Utilizadas
 
@@ -61,7 +63,7 @@ Execute o projeto:
 
 python main.py
 
-Atualmente, todas as análises estão concentradas no módulo analiseBasica.py e interpretarSwap.py, responsáveis por capturar dados da pool AERO/ETH diretamente da blockchain da Base e apresentar métricas como preço, volume, liquidez e número de transações, além de calcular a força compradora/vendedora.
+Atualmente, todas as análises estão concentradas nos módulos analiseBasica.py e interpretarSwap.py, responsáveis por capturar dados da pool AERO/ETH diretamente da blockchain da Base e apresentar métricas como preço, volume, liquidez e número de transações, além de calcular a força compradora/vendedora.
 
 🧩 Estrutura Atual do Projeto
 
@@ -70,6 +72,8 @@ want33d/
 ├── blast.py               # Consulta paginada ao RPC da rede Base
 ├── coletorSwap.py         # Coleta de eventos Swap com temporizador e paginação
 ├── interpretarSwap.py     # Interpreta os dados brutos dos Swaps (entrada/saída de ETH)
+├── blocoPorTimestamp.py   # Conversão precisa de timestamps para blocos reais
+├── rastrearPools.py       # Início da lógica para rastrear o token AERO em qualquer pool
 ├── main.py                # Ponto de entrada do projeto
 ├── requirements.txt       # Dependências reais do projeto
 ├── .env                   # Variáveis de ambiente sensíveis (não deve ser versionado)
@@ -97,8 +101,10 @@ Foco em aprendizado raiz, disciplina e domínio técnico na prática.
 
 19/06/2025 — Interpretação dos eventos Swap finalizada com cálculo de volumes reais comprados/vendidos em USD. Adição de temporizador animado para feedback contínuo durante a coleta. Interface de leitura no terminal totalmente reformulada para simular uma leitura de mercado profissional.
 
+21/06/2025 — Implementação da lógica de timestamp → bloco para múltiplas janelas de tempo (1h, 6h, 24h) com busca binária. Início da nova fase: rastrear todos os eventos Swap com o token AERO em toda a blockchain Base.
+
 📌 Observações Finais
 
 O projeto está evoluindo rumo à construção de um agente que possa detectar padrões de dominância de compra ou venda com base em dados brutos on-chain. O foco é detectar oportunidades para entradas estratégicas, com base em ciclos de curto prazo, e defender-se de manipulações de bots.
 
-A próxima etapa será implementar a coleta baseada em blocos exatos dos últimos 1h, 6h e 24h usando timestamps psicológicos.
+A nova etapa do projeto busca analisar o token AERO em toda a blockchain, elevando a precisão das análises.
