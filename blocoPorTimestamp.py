@@ -8,12 +8,12 @@ url_web3 = os.getenv('BLAST_API_CHAVE')
 w3 = Web3(Web3.HTTPProvider(url_web3))
 
 
-def buscar_bloco_por_timestamp(w3, timestamp_alvo)
+def buscar_bloco_por_timestamp(w3, timestamp_alvo):
     # estrutura de busca binaria para encontrar o bloco mais proximo do timestamp
     bloco_mais_baixo = 1
     bloco_mais_alto = w3.eth.block_number
 
-    while bloco_mais_baixo <= bloco_mais_baixo:
+    while bloco_mais_baixo <= bloco_mais_alto:
         bloco_meio = (bloco_mais_baixo + bloco_mais_alto) // 2
         bloco = w3.eth.get_block(bloco_meio)
         timestamp_bloco = bloco.timestamp
@@ -28,22 +28,17 @@ def buscar_bloco_por_timestamp(w3, timestamp_alvo)
 
 def gerar_intervalos_temporais():
     agora = datetime.now(timezone.utc)
-    timestamps = {
+    return {
         '24h': int((agora - timedelta(hours=24)).timestamp()),
         '6h': int((agora - timedelta(hours=6)).timestamp()),
         '1h': int((agora - timedelta(hours=1)).timestamp())
     }
-    return timestamps
-
+    
 def gerar_blocos_por_intervalo(w3):
     timestamps = gerar_intervalos_temporais()
     blocos = {}
-    for intervalo, timestamp in timestamps.items():
-        bloco = buscar_bloco_por_timestamp(w3, timestamp)
-        blocos[intervalo] = bloco
-    
     bloco_atual = w3.eth.block_number
-    blocos_intervalos = {}
-    for intervalo, bloco_inicio in blocos.items():
-        blocos_intervalos[intervalo] = (bloco_inicio, bloco_atual)
-    return blocos_intervalos
+    for intervalo, timestamp in timestamps.items():
+        bloco_inicio = buscar_bloco_por_timestamp(w3, timestamp)
+        blocos[intervalo] = {'inicio': bloco_inicio, 'fim': bloco_atual}
+    return blocos

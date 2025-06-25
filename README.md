@@ -18,6 +18,9 @@ Este projeto tem como objetivo criar um agente autônomo em Python, chamado **wa
 - ✅ Temporizador com prints a cada 2 segundos durante a coleta para exibir progresso real ao usuário
 - ✅ Interface visual no terminal com progresso de coleta e análise técnica
 - ✅ Geração de blocos baseados em **timestamps psicológicos** (1h, 6h, 24h)
+- ✅ Motor de sinais com análise de dominância de compra ou venda (🟢 🔴 ⚪️)
+- ✅ Interpretação percentual da força de mercado com base no volume comprado/vendido em USD
+- ✅ Diagnóstico inteligente de equilíbrio ou manipulação de mercado
 - ✅ Estrutura modular com `main.py` como ponto de entrada
 - 🛠️ Em breve: Rastreamento completo do token AERO em múltiplas pools na blockchain Base, independentemente do contrato da pool
 
@@ -58,7 +61,7 @@ cd want33d
 python main.py
 ```
 
-Atualmente, todas as análises estão concentradas nos módulos `analiseBasica.py` e `interpretarSwap.py`, responsáveis por capturar dados da pool AERO/ETH diretamente da blockchain da Base e apresentar métricas como preço, volume, liquidez e número de transações, além de calcular a força compradora/vendedora.
+Atualmente, todas as análises estão concentradas nos módulos `analiseBasica.py`, `interpretarSwap.py` e `sinais.py`, responsáveis por capturar dados da pool AERO/ETH diretamente da blockchain da Base e apresentar métricas como preço, volume, liquidez, número de transações e **dominância de mercado**.
 
 ---
 
@@ -67,11 +70,13 @@ Atualmente, todas as análises estão concentradas nos módulos `analiseBasica.p
 ```
 want33d/
 ├── analiseBasica.py       # Captura dados via DexScreener
-├── blast.py               # Consulta paginada ao RPC da rede Base
 ├── coletorSwap.py         # Coleta de eventos Swap com temporizador e paginação
 ├── interpretarSwap.py     # Interpreta os dados brutos dos Swaps (entrada/saída de ETH)
 ├── blocoPorTimestamp.py   # Conversão precisa de timestamps para blocos reais
+├── sinais.py              # Motor de análise de dominância do mercado
 ├── rastrearPools.py       # Início da lógica para rastrear o token AERO em qualquer pool
+├── utils.py               # Funções auxiliares (temporizador, formatação, etc.)
+├── testes.py              # Módulo para testes manuais e validações
 ├── main.py                # Ponto de entrada do projeto
 ├── requirements.txt       # Dependências reais do projeto
 ├── .env                   # Variáveis de ambiente sensíveis (não deve ser versionado)
@@ -100,6 +105,7 @@ Foco em aprendizado raiz, disciplina e domínio técnico na prática.
 - **18/06/2025** — Coleta de eventos Swap via RPC da Blast com paginação, limite de blocos e estratégia baseada em timestamps psicológicos (em planejamento)
 - **19/06/2025** — Interpretação dos eventos Swap finalizada com cálculo de volumes reais comprados/vendidos em USD. Adição de temporizador animado para feedback contínuo durante a coleta. Interface de leitura no terminal totalmente reformulada para simular uma leitura de mercado profissional.
 - **21/06/2025** — Implementação da lógica de timestamp → bloco para múltiplas janelas de tempo (1h, 6h, 24h) com busca binária. Início da nova fase: rastrear todos os eventos Swap com o token AERO em toda a blockchain Base.
+- **24/06/2025** — Finalização do motor de sinais com leitura real de dominância de mercado por intervalo. Estrutura modular 100% funcional. Suspeita de manipulação identificada na pool AERO/ETH usada como base. Investigação em andamento.
 
 ---
 

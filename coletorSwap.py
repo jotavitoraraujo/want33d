@@ -7,8 +7,9 @@ import pprint
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from blocoPorTimestamp import gerar_blocos_por_intervalo
 
-def coletar_swaps24h():
+def coletar_swaps24h(w3, contrato_pool, bloco_inicio, bloco_fim):
     inicio_execucao = time.time()
     print('⏳ Aguarde: Analisando o Mercado em Tempo Real...')
     # Carrega variáveis do .env, incluindo a chave da BlastAPI
@@ -44,23 +45,20 @@ def coletar_swaps24h():
     contrato_aeroeth = w3.eth.contract(address=contrato_pool_aeroeth, abi=abi_swap)
 
     # === 3. Intervalo de blocos para análise (últimas 24h) ===
-    # Bloco atual e cálculo de ~24 horas atrás (43200 blocos em média na Base)
-    bloco_atual = w3.eth.block_number
-    blocos_24h = 43200
-    bloco_inicio = bloco_atual - blocos_24h
+    # geração precisa dos blocos com base em timestamps reais
+    intervalo_temporal = '24h'
+    blocos_intervalo = gerar_blocos_por_intervalo(w3)
+    bloco_inicio = blocos_intervalo[intervalo_temporal]['inicio']
+    bloco_atual = blocos_intervalo[intervalo_temporal]['fim']
+    
     # print(f'Bloco atual: {bloco_atual} | Bloco ~24h atrás: {bloco_inicio}') ###### DESATIVADO
 
     # Filtro básico para o evento Swap no intervalo definido
     from_block = bloco_inicio
     to_block = bloco_atual
     topic0_swap = '0xb3e2773606abfd36b5bd91394b3a54d1398336c65005baf7bf7a05efeffaf75b'
-    filtros = {
-        'fromBlock': from_block,
-        'toBlock': to_block,
-        'address': contrato_pool_aeroeth,
-        'topics': [HexBytes(topic0_swap)]
-    }
-
+    from_block = bloco_inicio
+    to_block = bloco_atual
     # === 4. Coleta dos eventos Swap via paginação ===
     # Inicializa variáveis para armazenar resultados e contagem
     all_logs = []
@@ -104,7 +102,7 @@ def coletar_swaps24h():
     tempo_total = time.time() - inicio_execucao
     minutos = int(tempo_total // 60)
     segundos = int(tempo_total % 60)
-    print(f'✅ Coleta concluída: {total_eventos} eventos Swap encontrados nas últimas 24h.')
+    print(f'✅ Coleta concluída: {total_eventos} eventos Swap encontrados nas últimas 24h.      ')
     print(f'⏱️ Tempo total de coleta: {minutos}m {segundos}s.')
     print()
     return logsSwap24h
