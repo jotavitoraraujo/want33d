@@ -7,14 +7,18 @@ import requests
 from dotenv import load_dotenv
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
-
+from web3 import Web3
+from blocoPorTimestamp import gerar_blocos_por_intervalo
 # ajuste de caminho .env
 dotenv_path = Path('.') / '.env'
 load_dotenv(dotenv_path=dotenv_path)
+url_web3 = os.getenv('BLAST_API_CHAVE')
+w3 = Web3(Web3.HTTPProvider(url_web3))
+blocos = gerar_blocos_por_intervalo(w3)
 
 # função personalizada
 def want33d():
-
+    
     # ajuste de data/hora
     agora = datetime.now(timezone.utc)
     limite_24h = agora - timedelta(hours=24)
@@ -23,7 +27,7 @@ def want33d():
     apiBASEscan_chavePrivada = os.getenv('BASESCAN_API_CHAVE')
     
     # dicionário json pool aero/eth | via api dexScrenner
-    url_aeroeth = 'https://api.dexscreener.com/latest/dex/pairs/base/0x7f670f78B17dEC44d5Ef68a48740b6f8849cc2e6'
+    url_aeroeth = 'https://api.dexscreener.com/latest/dex/pairs/base/0x3d5D143381916280ff91407FeBEB52f2b60f33Cf'
     resposta_aeroeth = requests.get(url_aeroeth)
     dicionario_aeroeth = resposta_aeroeth.json()
 
@@ -91,7 +95,22 @@ def want33d():
             't24h': float(total_24h)
         },
         'liquidez_usd': float(liquidez),
-        'marketCap': float(marketcap)
-    }
+        'marketCap': float(marketcap),
+        'blocos': blocos,
+        'blocos': {
+            '1h': {
+                'inicio': blocos['1h']['inicio'],
+                'fim': blocos['1h']['fim']
+            },
+            '6h': {
+                'inicio': blocos['6h']['inicio'], 
+                'fim': blocos['6h']['fim']
+                },
+            '24h': {
+                'inicio': blocos['24h']['inicio'],
+                  'fim': blocos['24h']['fim']
+                  }
+        }
+    }, w3
 if __name__ == '__main__':
     want33d()

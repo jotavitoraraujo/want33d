@@ -6,9 +6,10 @@ def analisar_dominancia(w3, preco_eth_usd):
 
     # analisa dominancia de compra/venda em 3 timestamps (1h 6h e 24h) com base nos eventos swaps que envolvem aero/eth
     sinais = {}
+    # intervalos podem ter 2 timestamps inclusos com ['1h'] e ['6h']
     intervalos = ['1h', '6h', '24h']
     blocos = gerar_blocos_por_intervalo(w3)
-    contrato_pool = '0x7f670f78B17dEC44d5Ef68a48740b6f8849cc2e6'
+    contrato_pool = '0x3d5D143381916280ff91407FeBEB52f2b60f33Cf'
 
     for intervalo in intervalos:
         bloco_inicio = blocos[intervalo]['inicio']

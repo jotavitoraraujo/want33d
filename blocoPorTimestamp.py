@@ -38,7 +38,9 @@ def gerar_blocos_por_intervalo(w3):
     timestamps = gerar_intervalos_temporais()
     blocos = {}
     bloco_atual = w3.eth.block_number
+    bloco_criacao = 4817819
     for intervalo, timestamp in timestamps.items():
-        bloco_inicio = buscar_bloco_por_timestamp(w3, timestamp)
+        bloco_calculado = buscar_bloco_por_timestamp(w3, timestamp)
+        bloco_inicio = max(bloco_calculado, bloco_criacao)
         blocos[intervalo] = {'inicio': bloco_inicio, 'fim': bloco_atual}
     return blocos
