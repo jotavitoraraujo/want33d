@@ -1,6 +1,6 @@
-from sinais import analisar_dominancia
-from blocoPorTimestamp import gerar_blocos_por_intervalo
-from coletorSwap import coletar_swaps24h
+from core.sinais import analisar_dominancia
+from coleta.blocoPorTimestamp import gerar_blocos_por_intervalo
+from coleta.coletorSwap import coletar_swaps24h
 from web3 import Web3
 import json
 import os

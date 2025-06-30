@@ -1,6 +1,6 @@
-from blocoPorTimestamp import gerar_blocos_por_intervalo
-from coletorSwap import coletar_swaps24h
-from interpretarSwap import interpretar_swaps
+from coleta.blocoPorTimestamp import gerar_blocos_por_intervalo
+from coleta.coletorSwap import coletar_swaps24h
+from core.interpretarSwap import interpretar_swaps
 
 def analisar_dominancia(w3, preco_eth_usd):
 

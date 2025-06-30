@@ -3,9 +3,9 @@ import os
 import time
 from dotenv import load_dotenv
 from pathlib import Path
-from blocoPorTimestamp import gerar_blocos_por_intervalo
+from coleta.blocoPorTimestamp import gerar_blocos_por_intervalo
 from hexbytes import HexBytes
-from utils import temporizador
+from core.utils import temporizador
 
 dotenv_path = Path('.') / '.env'
 load_dotenv(dotenv_path=dotenv_path)

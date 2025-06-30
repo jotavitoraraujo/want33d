@@ -4,10 +4,10 @@ from time import sleep
 from dotenv import load_dotenv
 from web3 import Web3
 from pathlib import Path
-from analiseBasica import want33d 
-from coletorSwap import coletar_swaps24h
-from interpretarSwap import interpretar_swaps
-from blocoPorTimestamp import gerar_blocos_por_intervalo
+from coleta.analiseBasica import want33d 
+from coleta.coletorSwap import coletar_swaps24h
+from core.interpretarSwap import interpretar_swaps
+from coleta.blocoPorTimestamp import gerar_blocos_por_intervalo
 load_dotenv(dotenv_path=Path('.') / '.env')
 url_web3 = os.getenv('BLAST_API_CHAVE')
 w3 = Web3(Web3.HTTPProvider(url_web3))

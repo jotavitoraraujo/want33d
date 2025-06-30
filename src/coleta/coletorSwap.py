@@ -7,7 +7,7 @@ import pprint
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-from blocoPorTimestamp import gerar_blocos_por_intervalo
+from coleta.blocoPorTimestamp import gerar_blocos_por_intervalo
 
 def coletar_swaps24h(w3, bloco_inicio, bloco_fim, callback_progresso=None, progresso_offset=0, progresso_total=100):
     #print(f'[DEBUG] Coletando de {bloco_inicio} até {bloco_fim}')

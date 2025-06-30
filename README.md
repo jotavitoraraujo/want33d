@@ -1,3 +1,4 @@
+
 # 🧠 want33d — Agente Autônomo de Monitoramento Cripto
 
 Este projeto tem como objetivo criar um agente autônomo em Python, chamado **want33d**, capaz de monitorar em tempo real o comportamento do token **AERO** (Aerodrome Finance) na rede **Base**, utilizando APIs públicas e dados on-chain para análise de preço, liquidez e dominância de mercado, com foco especial em **formadores de mercado**.
@@ -72,27 +73,38 @@ O terminal exibirá a leitura técnica da pool AERO/ETH baseada em blocos recent
 
 ```
 want33d/
-├── analiseBasica.py       # Captura dados via DexScreener e DefiLlama
-├── coletorSwap.py         # Coleta de eventos Swap com barra de progresso única
-├── interpretarSwap.py     # Interpreta swaps brutos para determinar direção e volume
-├── blocoPorTimestamp.py   # Conversão precisa de timestamps para blocos via RPC
-├── sinais.py              # Motor de dominância baseado em volumes reais
-├── rastrearPools.py       # (WIP) Lógica para rastrear o token AERO em qualquer pool
-├── utils.py               # Funções auxiliares (temporizador, formatação, etc.)
-├── testes.py              # Módulo para testes manuais e validações específicas
-├── main.py                # Ponto de entrada do projeto
-├── requirements.txt       # Dependências reais do projeto
-├── .env                   # Variáveis sensíveis (não deve ser versionado)
-├── .gitignore             # Arquivos ignorados pelo Git
-├── README.md              # Este documento
-├── LICENSE
+├── dicionario_apis/                   # Dicionários com as signatures dos eventos e padrões de APIs
+│   ├── dictBASESCAN.py                    # Topics e ABI do contrato da pool AERO/ETH na BaseScan
+│   └── dictDEXScreener.py                 # Identificadores da DexScreener para coleta de preço
+│
+├── src/
+│   ├── coleta/                        # Módulos responsáveis por buscar os dados brutos (preço, swaps, blocos)
+│   │   ├── analiseBasica.py              # Consulta dados da DexScreener
+│   │   ├── blocoPorTimestamp.py         # Converte timestamps para blocos na Base
+│   │   ├── coletorSwap.py               # Coleta eventos Swap da AERO/ETH via RPC
+│   │   └── rastrearPools.py            # (WIP) Rastreia o token AERO em múltiplas pools
+│   │
+│   ├── core/                          # Camada lógica do projeto (interpretação e sinais)
+│   │   ├── interpretarSwap.py           # Determina direção (compra/venda) e volume real de swaps
+│   │   ├── sinais.py                    # Calcula dominância com base nos volumes
+│   │   └── utils.py                     # Funções auxiliares (formatação, temporizador etc.)
+│   │
+│   └── estudos/                       # Arquivos de estudo e execução local
+│       └── testes.py                    # Scripts para testes manuais
+│       
+├── main.py                            # Ponto de entrada do projeto com output formatado no terminal
+├── requirements.txt                   # Dependências externas utilizadas no projeto
+├── .env                               # Variáveis sensíveis (não deve ser versionado)
+├── .gitignore                         # Arquivos/pastas ignorados pelo Git
+├── README.md                          # Este documento
+└── LICENSE                            # Licença de uso do projeto
 ```
 
 ---
 
 ## 👨‍💻 Autor
 
-Desenvolvido por **João Vitor Araújo** — Estudante de Análise e Desenvolvimento de Sistemas.\
+Desenvolvido por **João Vitor Araújo** — Estudante de Análise e Desenvolvimento de Sistemas.  
 Foco em aprendizado raiz, disciplina e **formação de mercado** com dados reais e blockchain.
 
 - [LinkedIn](https://www.linkedin.com/in/joaoaraujo-dev/)
@@ -118,4 +130,3 @@ Foco em aprendizado raiz, disciplina e **formação de mercado** com dados reais
 O **want33d** foi desenvolvido com foco em **formadores de mercado**, priorizando dados on-chain confiáveis para leitura de comportamento de pool e tomada de decisão. Com análises em múltiplos intervalos e leitura da dominância real de fluxo, o projeto oferece ferramentas para identificar desequilíbrios, sinais de manipulação ou oportunidades de entrada baseadas em movimentações reais na blockchain.
 
 A próxima fase do projeto foca no rastreamento de **todas as pools** onde o token AERO circula, elevando o nível da análise e antecipando movimentos relevantes do mercado.
-

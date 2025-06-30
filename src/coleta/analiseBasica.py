@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
 from web3 import Web3
-from blocoPorTimestamp import gerar_blocos_por_intervalo
+from coleta.blocoPorTimestamp import gerar_blocos_por_intervalo
 # ajuste de caminho .env
 dotenv_path = Path('.') / '.env'
 load_dotenv(dotenv_path=dotenv_path)
